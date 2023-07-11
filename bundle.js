@@ -1260,7 +1260,11 @@ define("renderer", ["require", "exports", "sprites", "engine", "helpers", "game"
         (0, engine_2.write)("Rituals\n\n", 160, 20);
         let selected = shop_1.shop.items[shop_1.shop.selectedIndex];
         for (let item of shop_1.shop.items) {
+            if (game.souls < item.cost) {
+                engine_2.ctx.globalAlpha = 0.6;
+            }
             (0, engine_2.write)(`${item === selected ? ">" : " "}${item.name} $${item.cost}\n`);
+            engine_2.ctx.globalAlpha = 1;
         }
         (0, engine_2.write)("\n" + selected?.description + "\n");
     }
