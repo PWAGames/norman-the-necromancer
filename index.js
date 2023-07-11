@@ -84,47 +84,39 @@ const t = [0, 18, 16, 15],
 	Rt = Mt / 2,
 	St = 2 * Mt;
 
-function qt(t, e)
-{
+function qt(t, e) {
 	return {
 		x: t,
 		y: e
 	}
 }
 
-function At(t, e, n)
-{
+function At(t, e, n) {
 	return t < e ? e : t > n ? n : t
 }
 
-function Bt(t)
-{
+function Bt(t) {
 	return [Math.cos(t), Math.sin(t)]
 }
 
-function $t(t, e)
-{
+function $t(t, e) {
 	return Math.atan2(e.y - t.y, e.x - t.x)
 }
 
-function Nt(t, e)
-{
+function Nt(t, e) {
 	let n = t.indexOf(e);
 	n >= 0 && t.splice(n, 1)
 }
 
-function Ot(t)
-{
+function Ot(t) {
 	return t[Tt(t.length)]
 }
 
-function Tt(t)
-{
+function Tt(t) {
 	return Math.random() * t | 0
 }
 
-function Dt(t = 1)
-{
+function Dt(t = 1) {
 	return Math.random() * t
 }
 let jt = {};
@@ -135,23 +127,19 @@ Ft.src = "./sprites.png";
 let Ht = c,
 	Et = Ht.getContext("2d");
 
-function It([t, e, n, i], s, o)
-{
+function It([t, e, n, i], s, o) {
 	Ut(t, e, n, i, s, o, n, i)
 }
 
-function Pt(t, e, n)
-{
+function Pt(t, e, n) {
 	It(t, e, -n - t[3])
 }
 
-function Ut(t, e, n, i, s, o, a, r)
-{
+function Ut(t, e, n, i, s, o, a, r) {
 	Et.drawImage(Ft, t, e, n, i, 0 | s, 0 | o, a, r)
 }
 
-function Gt(t, e, n, i, s)
-{
+function Gt(t, e, n, i, s) {
 	let [o, a, r, l] = t;
 	if (i <= 3 || s <= 3) return;
 	let h = o,
@@ -175,16 +163,13 @@ function Gt(t, e, n, i, s)
 let Lt = 0,
 	Vt = 0;
 
-function Wt(t, e = Lt, n = Vt)
-{
+function Wt(t, e = Lt, n = Vt) {
 	var i;
 	Lt = 0 | e, Vt = 0 | n;
-	for (let s = 0; s < t.length; s++)
-	{
+	for (let s = 0; s < t.length; s++) {
 		let n = t[s];
 		if ("\n" === n) Lt = e, Vt += 7;
-		else
-		{
+		else {
 			let t = n.charCodeAt(0) - 32,
 				e = t % 32 * 5,
 				s = 6 * (t / 32 | 0),
@@ -195,10 +180,8 @@ function Wt(t, e = Lt, n = Vt)
 	}
 }
 
-function zt()
-{
-	let
-	{
+function zt() {
+	let {
 		width: t,
 		height: e
 	} = Ht, n = Math.min(innerWidth / t, innerHeight / e, 3);
@@ -207,10 +190,8 @@ function zt()
 let Kt = [],
 	Xt = t => t;
 
-function Yt(t, e, n, i, s = Xt)
-{
-	Kt.push(
-	{
+function Yt(t, e, n, i, s = Xt) {
+	Kt.push({
 		t: t,
 		i: e,
 		duration: n,
@@ -221,61 +202,48 @@ function Yt(t, e, n, i, s = Xt)
 }
 const Jt = [0, 0];
 
-function Qt([t, e])
-{
+function Qt([t, e]) {
 	return t + Math.random() * e
 }
 let Zt = [];
-const _t = class
-{
-	constructor(t = {})
-	{
+const _t = class {
+	constructor(t = {}) {
 		this.u = new Set, this.x = 0, this.y = 0, this.w = 0, this.g = 0, this.m = [], this.frequency = 0, this.p = Jt, this.angle = Jt, this.duration = Jt, this.v = Jt, this.C = Jt, this.k = Jt, this.M = 0, this.done = !1, Object.assign(this, t), Zt.push(this)
 	}
-	extend(t)
-	{
+	extend(t) {
 		return Object.assign(this, t)
 	}
-	remove()
-	{
+	remove() {
 		this.done = !0
 	}
-	update(t)
-	{
+	update(t) {
 		let e = t / 1e3;
 		for (this.M += this.frequency; !this.done && this.M > 0;) this.M -= 1, this.R();
 		for (let n of this.u)(n.h += t) >= n.duration ? (this.u.delete(n), _t.S.push(n)) : (n.x += n.q * e, n.y += n.A * e, n.A -= n.k * e, n.y <= 0 && (n.y = 0, n.A *= -n.v, n.q *= n.C));
 		this.done && 0 === this.u.size && Nt(Zt, this)
 	}
-	R()
-	{
-		let t = _t.S.pop() ||
-			{},
+	R() {
+		let t = _t.S.pop() || {},
 			e = Qt(this.p),
 			n = Qt(this.angle),
 			[i, s] = Bt(n);
 		t.x = Qt([this.x, this.w]), t.y = Qt([this.y, this.g]), t.q = i * e, t.A = s * e, t.h = 0, t.duration = Qt(this.duration), t.v = Qt(this.v), t.C = Qt(this.C), t.k = Qt(this.k), t.variant = 0 | Qt([0, this.m.length]), this.u.add(t)
 	}
-	B(t)
-	{
+	B(t) {
 		for (let e = 0; e < t; e++) this.R();
 		return this
 	}
 };
 let te = _t;
 te.S = [];
-class ee
-{
-	constructor()
-	{
+class ee {
+	constructor() {
 		this.x = 0, this.y = 0, this.q = 0, this.A = 0, this.k = 0, this.v = 0, this.C = 0, this.$ = 0, this.N = [0, 0, 0, 0], this.tags = 0, this.O = 0, this.T = 0, this.D = 0, this.j = 0, this.F = 0, this.H = !1, this.I = !1, this.groupId = 0, this.P = [], this.U = 0, this.G = 0
 	}
-	is(t)
-	{
+	is(t) {
 		return (this.tags & t) > 0
 	}
-	bounds()
-	{
+	bounds() {
 		return {
 			x: this.x,
 			y: this.y,
@@ -283,84 +251,61 @@ class ee
 			g: this.N[3]
 		}
 	}
-	L()
-	{
+	L() {
 		return qt(this.x + this.N[2] / 2, this.y + this.N[3] / 2)
 	}
-	update(t)
-	{
+	update(t) {
 		this.V(t), this.G -= t, this.G <= 0 && (this.G = this.U, this.W()), this.K && (this.K.x = this.x, this.K.y = this.y)
 	}
-	X(t = new ne(this), e = this.P.length)
-	{
-		let
-		{
+	X(t = new ne(this), e = this.P.length) {
+		let {
 			constructor: n
 		} = Object.getPrototypeOf(t);
 		return n !== ne && this.Y(n) || (this.P.splice(e, 0, t), t.J()), t
 	}
-	Z(t)
-	{
+	Z(t) {
 		Nt(this.P, t), t._()
 	}
-	Y(t)
-	{
+	Y(t) {
 		return this.P.find((e => e instanceof t))
 	}
-	V(t)
-	{
+	V(t) {
 		for (let e of this.P) e.V(t)
 	}
-	W()
-	{
+	W() {
 		for (let t of this.P)
 			if (++t.tt >= t.et && (t.tt = 0, t.W())) break
 	}
-	nt(t)
-	{
+	nt(t) {
 		for (let e of this.P) e.nt(t)
 	}
-	it(t)
-	{
+	it(t) {
 		for (let e of this.P) e.it(t)
 	}
-	st()
-	{
+	st() {
 		for (let t of this.P) t.st();
 		this.I && game.ot(this)
 	}
-	rt(t)
-	{
+	rt(t) {
 		for (let e of this.P) e.rt(t);
 		this.H && game.ot(this)
 	}
 }
-class ne
-{
-	constructor(t)
-	{
+class ne {
+	constructor(t) {
 		this.object = t, this.et = 1, this.tt = 0
 	}
-	J()
-	{}
-	_()
-	{}
-	W()
-	{}
-	st()
-	{}
-	nt(t)
-	{}
-	it(t)
-	{}
-	V(t)
-	{}
-	rt(t)
-	{}
+	J() {}
+	_() {}
+	W() {}
+	st() {}
+	nt(t) {}
+	it(t) {}
+	V(t) {}
+	rt(t) {}
 }
 
-function ie(t, e, n, i)
-{
+function ie(t, e, n, i) {
 	return {
 		lt: t,
 		name: e,
@@ -369,10 +314,8 @@ function ie(t, e, n, i)
 	}
 }
 
-function se()
-{
-	return new te(
-	{
+function se() {
+	return new te({
 		duration: [1e4, 5e3],
 		C: [.6, 0],
 		p: [5, 20],
@@ -387,10 +330,8 @@ function se()
 	})
 }
 
-function oe()
-{
-	return new te(
-	{
+function oe() {
+	return new te({
 		duration: [500, 1e3],
 		p: [1, 10],
 		angle: [Math.PI, -.5],
@@ -406,10 +347,8 @@ function oe()
 	})
 }
 
-function ae(t, e)
-{
-	return new te(
-	{ ...t,
+function ae(t, e) {
+	return new te({ ...t,
 		duration: [500, 1e3],
 		p: [1, 10],
 		angle: [Rt - .2, .4],
@@ -420,10 +359,8 @@ function ae(t, e)
 	})
 }
 
-function re()
-{
-	return oe().extend(
-	{
+function re() {
+	return oe().extend({
 		frequency: .5,
 		m: [
 			[R, S, q],
@@ -433,14 +370,12 @@ function re()
 	})
 }
 
-function le(t)
-{
+function le(t) {
 	return ae(t.bounds(), [
 		[p, w, v],
 		[w, v, y],
 		[p, v, x]
-	]).extend(
-	{
+	]).extend({
 		frequency: 0
 	})
 }
@@ -448,15 +383,12 @@ let he = new AudioContext;
 const ue = -12,
 	ce = [-.8, 1, .8, .8, -.8, -.8, -1],
 	fe = [ue, -10, -9, -7, -4, -5, -1, 0, 0, 2, 3, 5, 8, 7, 11, 12];
-let ge = new GainNode(he,
-{
+let ge = new GainNode(he, {
 	gain: 0
 });
 
-function me(t = 3, e = 2)
-{
-	let n = new ConvolverNode(he,
-		{}),
+function me(t = 3, e = 2) {
+	let n = new ConvolverNode(he, {}),
 		i = he.sampleRate,
 		s = i * t,
 		o = he.createBuffer(2, s, i),
@@ -466,75 +398,61 @@ function me(t = 3, e = 2)
 	return n.buffer = o, n
 }
 
-function de()
-{
-	let t = new GainNode(he,
-	{
+function de() {
+	let t = new GainNode(he, {
 		gain: 1
 	});
 	t.connect(ge);
-	let e = new GainNode(he,
-	{
+	let e = new GainNode(he, {
 		gain: 0
 	});
 	e.connect(t);
-	let n = new BiquadFilterNode(he,
-	{
+	let n = new BiquadFilterNode(he, {
 		type: "lowpass",
 		frequency: 500
 	});
 	n.connect(e);
 	let i = new OscillatorNode(he);
-	return i.connect(n),
-	{
+	return i.connect(n), {
 		gain: e,
 		ut: i,
 		filter: n,
 		volume: t,
-		play(t, n)
-		{
+		play(t, n) {
 			e.gain.setValueAtTime(.2, t), i.frequency.setValueAtTime(n, t)
 		},
-		start()
-		{
+		start() {
 			this.ut.start(), this.ct()
 		},
-		ct()
-		{
+		ct() {
 			t.gain.linearRampToValueAtTime(.5, he.currentTime + 1)
 		},
-		ft()
-		{
+		ft() {
 			t.gain.linearRampToValueAtTime(0, he.currentTime + 1)
 		}
 	}
 }
 
-function pe(t = 1, e = 1)
-{
+function pe(t = 1, e = 1) {
 	let n = de();
 	n.ut.setPeriodicWave(he.createPeriodicWave(ce, ce));
 	let i = me(t, e);
 	return i.connect(n.gain), n.filter.connect(i), n.filter.type = "highpass", n.filter.frequency.value = 200, n
 }
 
-function we(t, e = 0, n)
-{
+function we(t, e = 0, n) {
 	let i = he.currentTime;
-	! function s()
-	{
+	! function s() {
 		let o = new OscillatorNode(he);
 		o.start(i);
-		for (let r = 0; r < t.length; r += 2)
-		{
+		for (let r = 0; r < t.length; r += 2) {
 			let s = t[r],
 				o = .25 / (t[r + 1] / 4),
 				l = (a = s + e, 440 * Math.pow(Math.pow(2, 1 / 12), a));
 			n.play(i, l, o), i += o
 		}
 		var a;
-		o.stop(i), o.onended = () =>
-		{
+		o.stop(i), o.onended = () => {
 			s()
 		}
 	}()
@@ -542,12 +460,10 @@ function we(t, e = 0, n)
 ge.connect(he.destination);
 let ve = !1;
 
-function ye(t = 4, e = [1, 2, 4, 8], n = fe)
-{
+function ye(t = 4, e = [1, 2, 4, 8], n = fe) {
 	let i = t,
 		s = [];
-	for (; i > 0;)
-	{
+	for (; i > 0;) {
 		let t = Ot(e),
 			o = Ot(n),
 			a = 1 / t;
@@ -556,21 +472,17 @@ function ye(t = 4, e = [1, 2, 4, 8], n = fe)
 	return s
 }
 let xe = {
-	gt: function()
-	{
+	gt: function() {
 		let t = de();
-		return t.filter.type = "lowpass", t.filter.frequency.value = 80, t.ut.frequency.value = 150, t.play = e =>
-		{
+		return t.filter.type = "lowpass", t.filter.frequency.value = 80, t.ut.frequency.value = 150, t.play = e => {
 			t.ut.frequency.setValueAtTime(150, e), t.gain.gain.setValueAtTime(1, e), t.filter.frequency.setValueAtTime(80, e), t.ut.frequency.exponentialRampToValueAtTime(.001, e + .5), t.gain.gain.exponentialRampToValueAtTime(.001, e + .5), t.filter.frequency.linearRampToValueAtTime(.001, e + .5)
 		}, t
 	}(),
 	dt: pe(6, 1),
-	wt: function()
-	{
+	wt: function() {
 		let t = de(),
 			e = me(3, 1);
-		return e.connect(t.gain), t.filter.connect(e), t.ut.type = "sawtooth", t.play = (e, n) =>
-		{
+		return e.connect(t.gain), t.filter.connect(e), t.ut.type = "sawtooth", t.play = (e, n) => {
 			t.ut.frequency.setValueAtTime(n, e), t.gain.gain.setValueAtTime(.25, e), t.gain.gain.setTargetAtTime(0, e + .05, .2)
 		}, t
 	}(),
@@ -581,67 +493,50 @@ let xe = {
 let be = [xe.gt, xe.wt],
 	Ce = [xe.xt, xe.vt, xe.yt];
 
-function ke()
-{
-	if (0 === game.level && xe.dt.start(), 1 === game.level && xe.wt.start(), 2 === game.level && xe.gt.start(), 9 === game.level)
-	{
+function ke() {
+	if (0 === game.level && xe.dt.start(), 1 === game.level && xe.wt.start(), 2 === game.level && xe.gt.start(), 9 === game.level) {
 		for (let t of be) t.ft();
 		for (let t of Ce) t.start()
 	}
 	else
 		for (let t of be) t.ct()
 }
-class Me extends ne
-{
-	rt(t)
-	{
+class Me extends ne {
+	rt(t) {
 		let e = this.object.T,
 			n = t.T;
 		Xe(t, e, this.object), Xe(this.object, n, t)
 	}
 }
-class Re extends ne
-{
-	constructor(t, e)
-	{
+class Re extends ne {
+	constructor(t, e) {
 		super(t), this.duration = e, this.h = 0
 	}
-	V(t)
-	{
+	V(t) {
 		(this.h += t) >= this.duration && game.ot(this.object)
 	}
 }
-class Se extends ne
-{
-	constructor(t, e)
-	{
+class Se extends ne {
+	constructor(t, e) {
 		super(t), this.step = e
 	}
-	W()
-	{
-		this.object.y > 0 || (Yt(this.object.x, this.object.x + this.step, 200, ((t, e) =>
-		{
+	W() {
+		this.object.y > 0 || (Yt(this.object.x, this.object.x + this.step, 200, ((t, e) => {
 			this.object.x = t, this.object.$ = 2 * Math.sin(e * Math.PI), 1 === e && this.object.k >= 100 && (ln = 50)
 		})), (this.step < 0 && this.object.x < 0 || this.step > 0 && this.object.x > game.bt.width) && game.ot(this.object))
 	}
 }
-class qe extends ne
-{
-	constructor()
-	{
+class qe extends ne {
+	constructor() {
 		super(...arguments), this.Ct = 1
 	}
-	rt(t)
-	{
+	rt(t) {
 		Xe(t, this.Ct, this.object)
 	}
 }
-class Ae extends ne
-{
-	constructor()
-	{
-		super(...arguments), this.N = Z, this.et = 3, this.Ct = 1, this.K = ae(
-		{
+class Ae extends ne {
+	constructor() {
+		super(...arguments), this.N = Z, this.et = 3, this.Ct = 1, this.K = ae({
 			x: 0,
 			y: 0,
 			w: 0,
@@ -649,25 +544,20 @@ class Ae extends ne
 		}, [
 			[D, h],
 			[h]
-		]).extend(
-		{
+		]).extend({
 			k: [10, 30],
 			p: [10, 30],
 			frequency: 0
 		})
 	}
-	W()
-	{
+	W() {
 		var t;
 		this.K.extend(this.object.L()), null == (t = this.K) || t.B(1), Xe(this.object, 1, this.object)
 	}
 }
-class Be extends ne
-{
-	constructor(t, e)
-	{
-		super(t), this.mask = e, this.N = J, this.K = ae(
-		{
+class Be extends ne {
+	constructor(t, e) {
+		super(t), this.mask = e, this.N = J, this.K = ae({
 			x: 0,
 			y: 0,
 			w: 0,
@@ -675,33 +565,27 @@ class Be extends ne
 		}, [
 			[D, h],
 			[h]
-		]).extend(
-		{
+		]).extend({
 			k: [10, 30],
 			p: [10, 30],
 			frequency: 0
 		})
 	}
-	nt(t)
-	{
+	nt(t) {
 		t.kt && t.kt.is(this.mask) && (Xe(this.object, -t.Ct, this.object), t.Ct = 0, this.K.extend(this.object.bounds()).B(4))
 	}
 }
-class $e extends ne
-{
-	V()
-	{
+class $e extends ne {
+	V() {
 		let t, e = this.object,
 			n = 100;
 		for (let r of game.Mt)
-			if (r.is(this.object.O))
-			{
+			if (r.is(this.object.O)) {
 				let o = (i = e, s = r, Math.hypot(s.x - i.x, s.y - i.y));
 				o < n && (t = r, n = o)
 			}
 		var i, s, o, a;
-		if (t)
-		{
+		if (t) {
 			let n = (o = e.q, a = e.A, Math.atan2(a, o)),
 				i = n + ($t(e, t.L()) - n) / 20,
 				s = Math.hypot(e.q, e.A),
@@ -710,30 +594,22 @@ class $e extends ne
 		}
 	}
 }
-class Ne extends ne
-{
-	constructor(t, e, n)
-	{
+class Ne extends ne {
+	constructor(t, e, n) {
 		super(t), this.create = e, this.Rt = n, this.St = 0, this.qt = 0
 	}
-	At(t)
-	{}
-	V(t)
-	{
-		if ((this.St += t) > this.Rt)
-		{
+	At(t) {}
+	V(t) {
+		if ((this.St += t) > this.Rt) {
 			this.St = 0, this.qt++;
 			let t = this.create();
 			game.Bt(t, this.object.x, this.object.y), this.At(t)
 		}
 	}
 }
-const Oe = class extends ne
-{
-	constructor()
-	{
-		super(...arguments), this.$t = !1, this.Nt = void 0, this.rt = () => this.$t = !0, this.J = () =>
-		{
+const Oe = class extends ne {
+	constructor() {
+		super(...arguments), this.$t = !1, this.Nt = void 0, this.rt = () => this.$t = !0, this.J = () => {
 			var t, e;
 			this.Nt = (t = Oe.Ot)[e = this.object.groupId] || (t[e] = {
 				total: 0,
@@ -741,61 +617,48 @@ const Oe = class extends ne
 			}), this.Nt.total++
 		}
 	}
-	_()
-	{
+	_() {
 		this.$t && this.Nt.Tt++, --this.Nt.total || (this.Nt.Tt ? game.Dt = At(game.Dt + 1, 0, 10) : game.Dt = 0)
 	}
 };
 let Te = Oe;
 Te.Ot = {};
-class De extends ne
-{
-	constructor()
-	{
+class De extends ne {
+	constructor() {
 		super(...arguments), this.N = Q
 	}
-	nt(t)
-	{
+	nt(t) {
 		t.Ct > 0 && (t.Ct = 0)
 	}
 }
-class je extends ne
-{
-	constructor()
-	{
+class je extends ne {
+	constructor() {
 		super(...arguments), this.jt = 10
 	}
-	W()
-	{
+	W() {
 		return this.jt-- <= 0 && this.object.Z(this), !0
 	}
 }
-class Fe extends ne
-{
-	rt(t)
-	{
-		for (let e = 0; e < 3; e++)
-		{
+class Fe extends ne {
+	rt(t) {
+		for (let e = 0; e < 3; e++) {
 			let e = Ie();
 			e.A = -200, e.q = Tt(20) - 10, e.y = At(50 + Tt(100), 0, game.bt.Ft - 10), e.x = t.x + Tt(50) - 25, game.Bt(e)
 		}
 	}
 }
 
-function He()
-{
+function He() {
 	let t = new ee;
 	return t.N = l, t.k = 100, t.tags = 8, t
 }
 
-function Ee()
-{
+function Ee() {
 	let t = new ee;
 	return t.N = g, t.tags = 16, t.O = 3, t.k = 100, t.K = oe(), t.C = .1, t.H = !0, t.I = !0, t.X(new qe(t)), t
 }
 
-function Ie()
-{
+function Ie() {
 	let t = Ee();
 	return t.N = lt, t.K.frequency = .8, t.K.m = [
 		[ut, ht, ct, ft],
@@ -806,60 +669,49 @@ function Ie()
 	], t
 }
 
-function Pe()
-{
+function Pe() {
 	let t = new ee;
 	return t.N = e, t.tags = 5, t.O = 2, t.T = t.D = 1, t.U = 1e3, t.P.push(new Se(t, 16)), t.P.push(new Me(t)), t
 }
 
-function Ue()
-{
+function Ue() {
 	let t = Pe();
 	return t.N = bt, t.T = t.D = 3, t.U = 1500, t
 }
 
-function Ge()
-{
+function Ge() {
 	let t = new ee;
 	return t.N = Ot([i, Ct, s, o]), t.C = .8, t.k = 75, t.x = game.bt.width, t.tags = 3, t.T = t.D = 1, t.U = 600, t.X(new Se(t, -16)), t.F = .75, t.j = 5, t
 }
 
-function Le()
-{
+function Le() {
 	let t = Ge();
 	return t.T = t.D = 2, t
 }
 
-function Ve()
-{
+function Ve() {
 	let t = Ge();
 	return t.N = a, t.U = 300, t.T = t.D = 2, t
 }
 
-function We()
-{
+function We() {
 	let t = Ge();
 	return t.N = Y, t.U = 200, t.j = 5, t.F = 0, t
 }
 
-function ze()
-{
+function ze() {
 	let t = Ge();
 	t.N = O, t.T = t.D = 4, t.j = 10;
 	let e = t.Y(Se),
 		n = !1,
 		i = t.X();
-	return i.et = 3, i.W = () =>
-	{
+	return i.et = 3, i.W = () => {
 		n = !n, e.step = n ? 0 : -16, t.N = n ? _ : O
-	}, i.nt = t =>
-	{
+	}, i.nt = t => {
 		var e;
-		if (n && (null == (e = t.kt) ? void 0 : e.is(16)) && t.kt.q > 0)
-		{
+		if (n && (null == (e = t.kt) ? void 0 : e.is(16)) && t.kt.q > 0) {
 			t.Ct = 0;
-			let e = function()
-			{
+			let e = function() {
 				let t = new ee;
 				return t.N = U, t.tags = 16, t.O = 33, t.T = 1, t.I = !0, t.H = !0, t.X(new qe(t)), t.X(new Re(t, 3e3)), t.C = .9, t.K = re(), t
 			}();
@@ -868,21 +720,18 @@ function ze()
 	}, t.P.reverse(), t
 }
 
-function Ke()
-{
+function Ke() {
 	let t = new ee;
 	return t.N = it, t.tags = 2, t.T = t.D = 3, t.j = 10, t.X(new Re(t, 3e4)), t.X(new Ne(t, (() => Ot([Ge, Le, Ve])()), 3e3)), t.K = ae(t.bounds(), [
 		[st, ot, at],
 		[ot, at],
 		[at]
-	]).extend(
-	{
+	]).extend({
 		frequency: .2
 	}), t
 }
 
-function Xe(t, e, n)
-{
+function Xe(t, e, n) {
 	let i = {
 		Ct: e,
 		kt: n
@@ -890,16 +739,14 @@ function Xe(t, e, n)
 	t.nt(i), t.T = At(t.T - i.Ct, 0, t.D), t.T || Ye(t, n)
 }
 
-function Ye(t, e)
-{
+function Ye(t, e) {
 	var n;
 	let i = {
 		object: t,
 		Ht: e,
 		j: t.j
 	};
-	if (t.is(1))
-	{
+	if (t.is(1)) {
 		let e = t.L();
 		se().extend(e).B(2 + Tt(3)).remove(), t.it(i);
 		for (let t of game.Et) null == (n = t.it) || n.call(t, i);
@@ -909,13 +756,11 @@ function Ye(t, e)
 }
 let Je = 0,
 	Qe = 1;
-const Ze = [Ge, Ve, function()
-	{
+const Ze = [Ge, Ve, function() {
 		let t = Ge();
 		t.N = r, t.U = 600, t.T = t.D = 3, t.j = 10;
 		let e = new ne(t);
-		return e.et = 5, e.W = () =>
-		{
+		return e.et = 5, e.W = () => {
 			for (let e of game.Mt) e.is(2) && Xe(e, -1, t);
 			ae(t.bounds(), [
 				[R, S, q],
@@ -923,16 +768,13 @@ const Ze = [Ge, Ve, function()
 				[R, q]
 			]).B(10).remove()
 		}, t.X(e), t
-	}, function()
-	{
+	}, function() {
 		let t = Ge();
 		return t.N = m, t.U = 1e3, t.T = t.D = 10, t.j = 25, t
-	}, function()
-	{
+	}, function() {
 		let t = Ge();
 		return t.N = j, t.U = 500, t.T = t.D = 15, t.X(new Ne(t, We, 2e3)), t.j = 100, t
-	}, function()
-	{
+	}, function() {
 		let t = Ge();
 		t.N = et, t.U = 500, t.T = t.D = 5;
 		let e = t.X(),
@@ -940,33 +782,26 @@ const Ze = [Ge, Ve, function()
 			i = new Be(t, 16),
 			s = !1,
 			o = n.step;
-		return e.et = 5, e.W = () =>
-		{
+		return e.et = 5, e.W = () => {
 			s = !s, s ? t.X(i) : t.Z(i), t.N = s ? nt : et, n.step = s ? 0 : o
 		}, t.j = 20, t
-	}, ze, function()
-	{
+	}, ze, function() {
 		let t = Ge();
 		t.N = M, t.U = 1e3, t.T = t.D = 5, t.j = 15;
 		let e = t.X(),
 			n = !1,
 			i = 0;
-		return e.W = () =>
-		{
+		return e.W = () => {
 			n = i++ % 4 > 1, t.N = n ? T : M, e.N = n ? Q : void 0
-		}, e.nt = t =>
-		{
+		}, e.nt = t => {
 			n && (t.Ct = Math.min(0, t.Ct))
 		}, t
-	}, function()
-	{
+	}, function() {
 		let t = Ge();
 		return t.N = B, t.T = t.D = 15, t.j = 10, t.X(new Ne(t, Ke, 3e3)), t
-	}, function()
-	{
+	}, function() {
 		let t = Ge();
-		t.N = $, t.U = 5e3, t.T = t.D = 100, t.P = [], t.k = 1e3, t.K = re().extend(
-		{
+		t.N = $, t.U = 5e3, t.T = t.D = 100, t.P = [], t.k = 1e3, t.K = re().extend({
 			frequency: .2,
 			angle: [Rt, .5],
 			w: t.N[2],
@@ -978,24 +813,19 @@ const Ze = [Ge, Ve, function()
 			s = new Be(t, 16),
 			o = new De(t),
 			a = new ne(t);
-		return t.X(n), t.X(a), a.nt = (
-		{
+		return t.X(n), t.X(a), a.nt = ({
 			Ct: a
-		}) =>
-		{
+		}) => {
 			let r = t.T - a <= 0;
 			if (1 === e && r) e = 2, t.X(i), t.X(s), t.X(o), n.step *= -1;
-			else if (3 === e && r)
-			{
+			else if (3 === e && r) {
 				xe.gt.ct(), e = 4, t.T = t.D, t.N = N, t.U = t.G = 1e3, n.step /= 2;
 				let i = 0;
-				t.X().V = t =>
-				{
+				t.X().V = t => {
 					(i += t) > 300 && (i = 0, game.Bt(He(), Tt(game.bt.width), game.bt.Ft))
 				}
 			}
-		}, i.At = () =>
-		{
+		}, i.At = () => {
 			i.qt >= 5 && (e = 3, t.Z(s), t.Z(o), t.Z(i), n.step *= -1)
 		}, t
 	}, We, Ge, Le],
@@ -1009,8 +839,7 @@ const Ze = [Ge, Ve, function()
 let en = 0,
 	nn = 0;
 
-function sn()
-{
+function sn() {
 	return !game.Mt.some((t => t.is(2)))
 }
 let on = {
@@ -1019,31 +848,25 @@ let on = {
 	selectedIndex: 0
 };
 
-function an(t)
-{
+function an(t) {
 	on.selectedIndex = At(on.selectedIndex + t, 0, on.items.length - 1)
 }
 
-function rn()
-{
-	let t = function(t)
-		{
+function rn() {
+	let t = function(t) {
 			let e = (t = [...t]).length;
-			for (; e;)
-			{
+			for (; e;) {
 				let n = Tt(e--);
 				[t[e], t[n]] = [t[n], t[e]]
 			}
 			return t
 		}(on.Et.filter((t => game.Pt(t)))),
 		e = t.filter((t => 1 !== t.Ut));
-	return t.filter((t => 1 === t.Ut)).slice(0, 1).concat(e.slice(0, 2)).map((t => (
-	{
+	return t.filter((t => 1 === t.Ut)).slice(0, 1).concat(e.slice(0, 2)).map((t => ({
 		name: t.name,
 		description: t.description,
 		lt: 1 === t.Ut ? 200 + Tt(100) : 75 + Tt(100),
-		ht()
-		{
+		ht() {
 			Nt(on.Et, t), game.Gt(t)
 		}
 	})))
@@ -1051,8 +874,7 @@ function rn()
 let ln = 0,
 	hn = qt(0, 150);
 
-function un(t, e, n, i, s, o)
-{
+function un(t, e, n, i, s, o) {
 	let a = t - 4 * i / 2;
 	for (let r = 0; r < i; r++) Pt(r < n ? s : o, a + 4 * r, e)
 }
@@ -1066,8 +888,7 @@ let cn = {
 		tags: 1,
 		name: "Bouncing",
 		description: "Spells bounce",
-		Lt(t)
-		{
+		Lt(t) {
 			t.X(new Re(t, 3e3)), t.I = !1, t.v = .5
 		}
 	},
@@ -1077,8 +898,7 @@ let cn = {
 		Ut: 1,
 		name: "Doubleshot",
 		description: "Cast 2 spells",
-		Wt()
-		{
+		Wt() {
 			game.Kt.zt = 2
 		}
 	},
@@ -1087,8 +907,7 @@ let cn = {
 		Ut: 1,
 		name: "Hunter",
 		description: "Spells seek targets",
-		Lt(t)
-		{
+		Lt(t) {
 			t.X(new $e(t))
 		}
 	},
@@ -1096,15 +915,12 @@ let cn = {
 		tags: 0,
 		name: "Weightless",
 		description: "Spells are not affected by gravity",
-		Lt(t)
-		{
+		Lt(t) {
 			t.k = 0, t.C = 0, t.v = 1
 		}
 	};
-class pn extends ne
-{
-	rt(t)
-	{
+class pn extends ne {
+	rt(t) {
 		t.k < 1e3 && Yt(t.x, t.x + 16, 200, (e => t.x = e))
 	}
 }
@@ -1112,8 +928,7 @@ let wn = {
 		tags: 0,
 		name: "Knockback",
 		description: "Spells knock backwards",
-		Lt(t)
-		{
+		Lt(t) {
 			t.X(new pn(t))
 		}
 	},
@@ -1122,21 +937,16 @@ let wn = {
 		Xt: 1,
 		name: "Ceiling",
 		description: "Adds a ceiling",
-		Wt()
-		{
+		Wt() {
 			game.bt.Ft = 48
 		}
 	};
-class yn extends ne
-{
-	constructor()
-	{
+class yn extends ne {
+	constructor() {
 		super(...arguments), this.split = !1
 	}
-	V()
-	{
-		if (!this.split && this.object.A < 0)
-		{
+	V() {
+		if (!this.split && this.object.A < 0) {
 			this.split = !0;
 			let t = this.object,
 				e = Ee(),
@@ -1152,8 +962,7 @@ let xn = {
 		name: "Rain",
 		description: "Spells split when they drop",
 		Yt: !1,
-		Lt(t)
-		{
+		Lt(t) {
 			t.X(new yn(t))
 		}
 	},
@@ -1161,8 +970,7 @@ let xn = {
 		tags: 0,
 		name: "Drunkard",
 		description: "2x damage, wobbly aim",
-		Lt(t)
-		{
+		Lt(t) {
 			t.q += Tt(100) - 50, t.A += Tt(100) - 50, t.Y(qe).Ct *= 2
 		}
 	},
@@ -1170,8 +978,7 @@ let xn = {
 		tags: 0,
 		name: "Seer",
 		description: "Spells pass through the dead",
-		Lt(t)
-		{
+		Lt(t) {
 			t.O = 2
 		}
 	},
@@ -1179,8 +986,7 @@ let xn = {
 		tags: 0,
 		name: "Tearstone",
 		description: "2x damage when < half HP",
-		Lt(t)
-		{
+		Lt(t) {
 			game.Jt.T < game.Jt.D / 2 && (t.Y(qe).Ct *= 3)
 		}
 	},
@@ -1188,8 +994,7 @@ let xn = {
 		tags: 0,
 		name: "Impatience",
 		description: "Resurrection recharges 2x faster",
-		Wt()
-		{
+		Wt() {
 			game.Zt.Qt /= 2
 		}
 	},
@@ -1197,10 +1002,8 @@ let xn = {
 		tags: 64,
 		name: "Bleed",
 		description: "Inflicts bleed on hits",
-		Lt(t)
-		{
-			t.N = G, t.K.extend(
-			{
+		Lt(t) {
+			t.N = G, t.K.extend({
 				m: [
 					[W, V, L],
 					[z, W, V],
@@ -1209,8 +1012,7 @@ let xn = {
 				frequency: 5,
 				angle: [Mt, 0],
 				k: [20, 50]
-			}), t.X().rt = t =>
-			{
+			}), t.X().rt = t => {
 				t.X(new Ae(t))
 			}
 		}
@@ -1219,10 +1021,8 @@ let xn = {
 		tags: 0,
 		name: "Allegiance",
 		description: "Summon your honour guard after resurrections",
-		_t()
-		{
-			for (let t = 0; t < 3; t++)
-			{
+		_t() {
+			for (let t = 0; t < 3; t++) {
 				let e = Ue();
 				e.U = 200, game.Bt(e, -15 * t, 0)
 			}
@@ -1232,13 +1032,10 @@ let xn = {
 		tags: 0,
 		name: "Salvage",
 		description: "Corpses become souls at the end of levels",
-		te()
-		{
+		te() {
 			let t = game.Mt.filter((t => t.is(8)));
-			for (let e of t)
-			{
-				let t = se().extend(
-				{ ...e.L(),
+			for (let e of t) {
+				let t = se().extend({ ...e.L(),
 					m: [
 						[g]
 					],
@@ -1253,8 +1050,7 @@ let xn = {
 		Ut: 1,
 		name: "Studious",
 		description: "Rituals are 50% cheaper",
-		ee()
-		{
+		ee() {
 			for (let t of on.items) t.lt = t.lt / 2 | 0
 		}
 	},
@@ -1263,8 +1059,7 @@ let xn = {
 		Ut: 1,
 		name: "Electrodynamics",
 		description: "Lightning strikes after hits",
-		Lt(t)
-		{
+		Lt(t) {
 			t.X(new Fe(t))
 		}
 	},
@@ -1272,12 +1067,10 @@ let xn = {
 		tags: 0,
 		name: "Chilly",
 		description: "10% chance to freeze enemies",
-		Lt(t)
-		{
+		Lt(t) {
 			Dt() <= .1 && (t.K.m = [
 				[dt, pt, wt]
-			], t.N = K, t.Y(qe).Ct = 0, t.X().rt = t =>
-			{
+			], t.N = K, t.Y(qe).Ct = 0, t.X().rt = t => {
 				t.k < 1e3 && t.X(new je(t), 0)
 			})
 		}
@@ -1286,8 +1079,7 @@ let xn = {
 		tags: 0,
 		name: "Giants",
 		description: "20% chance to resurrect giant skeletons",
-		ne(t)
-		{
+		ne(t) {
 			Dt() < .2 && (game.ot(t), game.Bt(Ue(), t.x, t.y))
 		}
 	},
@@ -1295,8 +1087,7 @@ let xn = {
 		tags: 0,
 		name: "Avarice",
 		description: "+1 soul for each corpse you resurrect",
-		ne()
-		{
+		ne() {
 			game.It(1)
 		}
 	},
@@ -1304,24 +1095,19 @@ let xn = {
 		tags: 0,
 		name: "Hardened",
 		description: "Unead have +1 HP*",
-		ne(t)
-		{
+		ne(t) {
 			t.T = t.D += 1
 		}
 	},
-	Dn = function()
-	{
+	Dn = function() {
 		let t = new ee;
-		return t.x = 5, t.tags = 36, t.N = n, t.O = 2, t.U = 1e3, t.T = t.D = 5, t.K = le(t), t.rt = e =>
-		{
+		return t.x = 5, t.tags = 36, t.N = n, t.O = 2, t.U = 1e3, t.T = t.D = 5, t.K = le(t), t.rt = e => {
 			Xe(t, e.T), Ye(e), t.T <= 0 && (window.location = window.location)
 		}, t
 	}();
 Dn.N = l;
-let jn = new class
-	{
-		constructor(t)
-		{
+let jn = new class {
+		constructor(t) {
 			this.bt = {
 				width: 400,
 				height: 200,
@@ -1342,70 +1128,56 @@ let jn = new class
 				tt: 1e4
 			}, this.Jt = t, this.Bt(t), window.game = this
 		}
-		Bt(t, e = t.x, n = t.y)
-		{
+		Bt(t, e = t.x, n = t.y) {
 			t.x = e, t.y = n, this.Mt.push(t)
 		}
-		ot(t)
-		{
+		ot(t) {
 			var e;
 			null == (e = t.K) || e.remove();
 			for (let n of Array.from(t.P)) t.Z(n);
 			Nt(this.Mt, t)
 		}
-		fe()
-		{
+		fe() {
 			return this.Dt / 10
 		}
-		It(t)
-		{
+		It(t) {
 			this.j += t + t * this.fe()
 		}
-		Gt(t)
-		{
+		Gt(t) {
 			var e;
 			this.Et.push(t), null == (e = t.Wt) || e.call(t)
 		}
-		Pt(t)
-		{
+		Pt(t) {
 			if (t.Vt)
 				for (let e of this.Et)
 					if (t.Vt & e.tags) return !1;
-			if (t.Xt)
-			{
+			if (t.Xt) {
 				for (let e of this.Et)
 					if (t.Xt & e.tags) return !0;
 				return !1
 			}
 			return !0
 		}
-		update(t)
-		{
+		update(t) {
 			this.ge(t), this.me(t), this.de(t), this.pe(t), this.we(t)
 		}
-		ge(t)
-		{
+		ge(t) {
 			game.Zt.tt += t, game.Jt.K.frequency = game.Zt.tt >= game.Zt.Qt ? .1 : 0
 		}
-		me(t)
-		{
+		me(t) {
 			this.Kt.he < this.Kt.le && (this.Kt.ce += t, this.Kt.ce > this.Kt.ue && (this.Kt.he += 1, this.Kt.ce = 0))
 		}
-		we(t)
-		{
+		we(t) {
 			var e;
 			for (let n of this.Et) null == (e = n.V) || e.call(n, t)
 		}
-		de(t)
-		{
+		de(t) {
 			for (let e of this.Mt) e.update(t)
 		}
-		pe(t)
-		{
+		pe(t) {
 			let e = t / 1e3;
 			for (let s of this.Mt) s.x += s.q * e, s.y += s.A * e;
-			for (let s of this.Mt)
-			{
+			for (let s of this.Mt) {
 				let t = this.bt.floor,
 					n = this.bt.Ft - s.N[3];
 				(s.y < t || s.y > n) && (s.y = At(s.y, t, n), Math.abs(s.A) >= 10 && s.st(), s.A *= -s.v), s.y !== t && s.y !== n || (s.q *= 1 - s.C), s.k && s.y > 0 && (s.A -= s.k * e)
@@ -1414,30 +1186,24 @@ let jn = new class
 				for (let t of this.Mt) s.O & t.tags && (n = s.bounds(), i = t.bounds(), n.x < i.x + i.w && n.y < i.y + i.g && n.x + n.w > i.x && n.y + n.g > i.y && s.rt(t));
 			var n, i
 		}
-		ve()
-		{
+		ve() {
 			var t;
 			for (let e of game.Et) null == (t = e.ve) || t.call(e)
 		}
-		te()
-		{
+		te() {
 			var t;
 			for (let e of game.Et) null == (t = e.te) || t.call(e)
 		}
-		ee()
-		{
+		ee() {
 			var t;
 			for (let e of game.Et) null == (t = e.ee) || t.call(e)
 		}
-		Lt(t, e = !1)
-		{
+		Lt(t, e = !1) {
 			var n;
 			for (let i of game.Et) e && 0 == i.Yt || null == (n = i.Lt) || n.call(i, t)
 		}
-		ye()
-		{
-			let
-			{
+		ye() {
+			let {
 				Kt: t,
 				Jt: e
 			} = this, n = e.L(), [i, s] = Bt(t.se);
@@ -1449,19 +1215,15 @@ let jn = new class
 	}(Dn),
 	Fn = !1;
 const Hn = ["", "It was over.", "Norman was able to study peacefully.", "But he knew that eventually, they'd be back.", "THE END"];
-onpointerup = () =>
-{
-	0 === jn.state && (function()
-		{
+onpointerup = () => {
+	0 === jn.state && (function() {
 			if (ve) return;
 			ve = !0;
 			let t = [0, .5, 2, .5, 3, .5, 2, .5];
-			we([0, 2, -24e3, 2], -36, xe.gt), we([0, 8, ue, 8], -36, xe.dt), we(function()
-			{
+			we([0, 2, -24e3, 2], -36, xe.gt), we([0, 8, ue, 8], -36, xe.dt), we(function() {
 				let t = ye(4, [8, 4], [fe, ue, ue, ue, ue, ue].flat());
 				return [t, t, t, ye(4, [8, 4], fe)].flat()
-			}(), -24, xe.wt);
-			{
+			}(), -24, xe.wt); {
 				let e = [0, 2, 2, 2, 3, 2, 2, 2],
 					n = [e, e, e, [0, 2, 2, 2, 3, 2, 5, 2]].flat();
 				we(n, 0, xe.vt), we(n, -12, xe.yt), we(t, -36, xe.xt)
@@ -1469,10 +1231,8 @@ onpointerup = () =>
 			let e = he.currentTime;
 			ge.gain.linearRampToValueAtTime(.5, e + 5), ke()
 		}(), jn.state = 1, jn.Jt.N = n),
-		function()
-		{
-			let
-			{
+		function() {
+			let {
 				Kt: e,
 				Jt: i
 			} = game;
@@ -1481,8 +1241,7 @@ onpointerup = () =>
 			let s = e.ae,
 				o = e.se - e.zt * e.re / 2,
 				a = Qe++;
-			for (let t = 0; t < e.zt; t++)
-			{
+			for (let t = 0; t < e.zt; t++) {
 				let n = Ee(),
 					i = o + t * e.re,
 					[r, l] = Bt(i),
@@ -1493,15 +1252,12 @@ onpointerup = () =>
 				n.x = h - n.N[2] / 2, n.y = u - n.N[3] / 2, n.q = r * s, n.A = l * s, n.groupId = a, game.Bt(n), game.Lt(n)
 			}
 		}()
-}, onpointermove = (
-{
+}, onpointermove = ({
 	clientX: t,
 	clientY: e
-}) =>
-{
+}) => {
 	let n = Dn.L(),
-		i = function(t, e)
-		{
+		i = function(t, e) {
 			let n = Ht.getBoundingClientRect(),
 				i = (t - n.x) * (Ht.width / n.width) | 0,
 				s = (e - n.y) * (Ht.height / n.height) | 0;
@@ -1511,27 +1267,22 @@ onpointerup = () =>
 			}
 		}(t, e);
 	jn.Kt.se = $t(n, i)
-}, onkeydown = (
-{
+}, onkeydown = ({
 	which: t
-}) =>
-{
-	1 === jn.state ? (32 === t && function()
-	{
+}) => {
+	1 === jn.state ? (32 === t && function() {
 		var t, e;
 		if (game.Zt.tt < game.Zt.Qt) return;
 		game.Zt.tt = 0;
 		for (let i of game.Et) null == (t = i._t) || t.call(i);
 		let n = game.Mt.filter((t => t.is(8)));
-		for (let i of n)
-		{
+		for (let i of n) {
 			game.ot(i);
 			let t = Pe();
 			game.Bt(t, i.x, 0), le(t).B(10).remove();
 			for (let n of game.Et) null == (e = n.ne) || e.call(n, t)
 		}
-	}(), 80 === t && (Fn = !Fn)) : 2 === jn.state && (38 === t && an(-1), 40 === t && an(1), 13 === t && function()
-	{
+	}(), 80 === t && (Fn = !Fn)) : 2 === jn.state && (38 === t && an(-1), 40 === t && an(1), 13 === t && function() {
 		let t = on.items[on.selectedIndex];
 		t && t.lt <= game.j && (game.j -= t.lt, Nt(on.items, t), t.ht(), an(on.selectedIndex))
 	}())
@@ -1539,129 +1290,103 @@ onpointerup = () =>
 let En = !1,
 	In = 0;
 jn.Gt(cn), on.Et = [fn, vn, xn, gn, mn, dn, wn, bn, Cn, kn, Mn, Rn, qn, An, Bn, $n, Nn, On, Tn, Sn], jn.ie = ["Norman wasn't a particularly popular necromancer...", "         The other villagers hunted him.", "     Sometimes they even finished the job (@)", "  But like any self-respecting necromancer...", "        Norman just brought himself back."],
-	function(t, e, n)
-	{
+	function(t, e, n) {
 		Ht.width = t, Ht.height = e, (onresize = zt)();
 		let i = 0;
-		! function t(e = 0)
-		{
+		! function t(e = 0) {
 			var n;
 			requestAnimationFrame(t),
-				function(t)
-				{
+				function(t) {
 					(In += t) > 4e3 && (jn.ie.shift(), In = 0, 0 === jn.state && 0 === jn.ie.length && jn.ie.push("                (Click to begin)"))
 				}(n = e - i),
-				function(t)
-				{
+				function(t) {
 					Et.clearRect(0, 0, Ht.width, Ht.height), Et.save(), ln > 0 && (ln -= t, Et.translate(Tt(2), Tt(2))), Et.translate(hn.x, hn.y),
-						function()
-						{
+						function() {
 							for (let t = 0; t < game.bt.width / 16; t++) Pt(t % 5 ? u : xt, 16 * t, 0), Pt(f, 16 * t, -f[3]), Pt(F, 16 * t, game.bt.Ft)
 						}(),
-						function()
-						{
+						function() {
 							for (let t of Zt)
-								for (let e of t.u)
-								{
+								for (let e of t.u) {
 									let n = t.m[e.variant];
 									Pt(n[e.h / e.duration * n.length | 0], e.x, e.y)
 								}
 						}(),
-						function()
-						{
-							for (let t of game.Mt)
-							{
+						function() {
+							for (let t of game.Mt) {
 								if (Pt(t.N, t.x, t.y + t.$), t.Y(je) && Gt(rt, t.x, -t.N[3], t.N[2], t.N[3]), t.D > 1 && t !== game.Jt)
-									if (t.D < 10)
-									{
-										let
-										{
+									if (t.D < 10) {
+										let {
 											x: e
 										} = t.L();
 										un(e, -6, t.T, t.D, D, H)
 									}
 								else Pt(D, t.x, -6), Wt(`${t.T}/${t.D}`, t.x + 6, 0);
-								let
-								{
+								let {
 									x: e
 								} = t;
 								for (let n of t.P) n.N && (Pt(n.N, e, -12), e += n.N[2] + 1)
 							}
-						}(), 1 === game.state && function()
-						{
-							let
-							{
+						}(), 1 === game.state && function() {
+							let {
 								x: t,
 								y: e
 							} = game.ye();
 							Pt(d, t - d[2] / 2, e - d[3] / 2)
 						}(), Et.restore(),
-						function()
-						{
+						function() {
 							if (game.ie.length && Wt(game.ie[0], 75, 50), 0 === game.state) return;
 							It(P, 0, 0);
 							for (let e = 0; e < game.Jt.D; e++) It(e < game.Jt.T ? D : H, 11 + 4 * e, 0);
 							for (let e = 0; e < game.Kt.le; e++) It(e < game.Kt.he ? E : I, 11 + 4 * e, 6);
 							let t = 0 | game.j;
-							if (t)
-							{
+							if (t) {
 								let e = game.fe();
 								Wt(`$${t} ${e?`(+${100*e+"%"})`:""}`, Ht.width / 2 - 30, 0)
 							}
-							if (Wt(`${game.level+1}-10`, Ht.width - 30, 2), 1 === game.state)
-							{
+							if (Wt(`${game.level+1}-10`, Ht.width - 30, 2), 1 === game.state) {
 								let t = 150,
 									e = Ht.height - 12,
 									n = At(game.Zt.tt / game.Zt.Qt, 0, 1);
 								Gt(tt, t, e, 52 * (1 - n) | 0, 10), Wt("Resurrect", t + 10, e + 2), Wt(1 === n ? " (Space)" : " (" + ((1 - n) * game.Zt.Qt / 1e3 | 0) + "s)"), It(l, t + 1, e + 1)
 							}
-						}(), 2 === game.state && function()
-						{
+						}(), 2 === game.state && function() {
 							Wt("Rituals\n\n", 160, 20);
 							let t = on.items[on.selectedIndex];
 							for (let e of on.items) Wt(`${e===t?">":" "}${e.name} $${e.lt}\n`);
 							Wt("\n" + (null == t ? void 0 : t.description) + "\n")
 						}()
-				}(n), Fn || (1 === jn.state && function(t)
-				{
+				}(n), Fn || (1 === jn.state && function(t) {
 					var e;
 					let n = tn[nn];
 					if ((en -= t) > 0);
 					else if (98 === n) sn() && nn++;
 					else if (99 === n);
-					else if (n)
-					{
+					else if (n) {
 						tn[nn]--;
 						let t = tn[nn + 1],
 							n = Ze[t]();
 						game.Bt(n), en = n.U + ((null == (e = _e[t]) ? void 0 : e.call(_e)) || 0)
 					}
 					else nn += 2
-				}(n), 0 !== jn.state && jn.update(n), function(t)
-				{
-					Kt = Kt.filter((e =>
-					{
+				}(n), 0 !== jn.state && jn.update(n), function(t) {
+					Kt = Kt.filter((e => {
 						e.h += t;
 						let n = At(e.h / e.duration, 0, 1),
 							i = e.l(n),
 							s = e.t + (e.i - e.t) * i;
 						return e.o(s, i), n < 1
 					}))
-				}(n), function(t)
-				{
+				}(n), function(t) {
 					for (let e of Zt) e.update(t)
-				}(n), 1 === jn.state && 99 === tn[nn] && sn() && (nn >= tn.length - 1 ? (jn.state = 4, jn.ie = Hn) : (jn.te(), game.state = 2, function()
-				{
+				}(n), 1 === jn.state && 99 === tn[nn] && sn() && (nn >= tn.length - 1 ? (jn.state = 4, jn.ie = Hn) : (jn.te(), game.state = 2, function() {
 					let t = Math.pow(game.level + 1, 2),
-						e = [game.Jt.T < game.Jt.D && ie(10 * game.level, "Heal", "Heal 1*", (() => Xe(game.Jt, -1))), ie(10 * t, "Renew", "+1* max hp", (() =>
-						{
+						e = [game.Jt.T < game.Jt.D && ie(10 * game.level, "Heal", "Heal 1*", (() => Xe(game.Jt, -1))), ie(10 * t, "Renew", "+1* max hp", (() => {
 							game.Jt.D++, game.Jt.T++
 						})), ie(10 * t, "Recharge", "+1 max casts", (() => game.Kt.le++)), ...rn(), ie(0, "Continue", "Begin the next level", (() => (game.state = 1, nn++, game.level++, game.ve(), void ke())))];
 					on.items = e.filter((t => t))
 				}(), game.ee(), xe.gt.ft())), 2 !== jn.level || En || (jn.Jt.X(new Se(jn.Jt, 0)), jn.Jt.G = 100, jn.Jt.U = 500, En = !0)), i = e
 		}(), onfocus = () => i = performance.now()
-	}(jn.bt.width, jn.bt.height), new te(
-	{
+	}(jn.bt.width, jn.bt.height), new te({
 		x: 0,
 		y: 0,
 		w: game.bt.width,
