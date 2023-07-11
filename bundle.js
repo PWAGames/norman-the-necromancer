@@ -2,7 +2,7 @@ define("sprites", [], { "norman_arms_up": [0, 18, 16, 15], "skeleton": [11, 33, 
 define("font", [], {
     "glyphWidth": 5,
     "glyphHeight": 6,
-    "lineHeight": 7,
+    "lineHeight": 14,
     "glyphWidthOverrides": {
         "mMWTVw/$%": 6,
         "I1f-=*+?{}\"": 4,
@@ -191,9 +191,9 @@ define("engine", ["require", "exports", "font", "helpers"], function (require, e
                 let code = char.charCodeAt(0) - 32;
                 let sx = (code % 32) * font_json_1.glyphWidth;
                 let sy = (code / 32 | 0) * font_json_1.glyphHeight;
-                let dx = textX;
-                let dy = textY;
-                exports.ctx.drawImage(spritesImage, sx, sy, font_json_1.glyphWidth, font_json_1.glyphHeight, dx, dy, font_json_1.glyphWidth, font_json_1.glyphHeight);
+                let dx = x + (textX - x) * 2;
+                let dy = y + (textY - y) * 2;
+                exports.ctx.drawImage(spritesImage, sx, sy, font_json_1.glyphWidth, font_json_1.glyphHeight, dx, dy, font_json_1.glyphWidth * 2, font_json_1.glyphHeight * 2);
                 textX += metrics[char] ?? font_json_1.glyphWidth;
             }
         }
