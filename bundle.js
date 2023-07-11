@@ -2317,18 +2317,69 @@ define("index", ["require", "exports", "sprites", "engine", "game", "renderer", 
         "But he knew that eventually, they'd be back.",
         "THE END",
     ];
-    onpointerup = () => {
+    let castTimerId = 0
+    let pointerDownState = -1
+    function getShopLine(shopModule, scenePos) {
+        const fontLineHeight = require('font').lineHeight // 7
+        const sceneOriginY = 150
+        const shopY = 20
+        const shopTextY = sceneOriginY - shopY
+        const shopItemCount = shopModule.shop.items.length
+        let shopLine = Math.floor((shopTextY - scenePos.y) / fontLineHeight)
+        shopLine -= 2 // "Rituals\n\n" takes up top two lines
+        return shopLine
+    }
+    onpointerdown = () => {
+        pointerDownState = game.state
+        if (game.state === game_6.INTRO) {
+            return
+        }
+        (0, actions_4.Cast)();
+        castTimerId = setInterval((0, actions_4.Cast), 400)
+    };
+    onpointerup = ({ clientX, clientY }) => {
+        clearInterval(castTimerId)
+        if (game.state != pointerDownState) {
+            return
+        }
         if (game.state === game_6.INTRO) {
             (0, sounds_2.play)();
             game.state = game_6.PLAYING;
             game.player.sprite = sprites.norman_arms_down;
+            return
+        } else if (game.state === game_6.SHOPPING) {
+            const shopModule = require('shop')
+            if (!shopModule.shop.ready) {
+                return
+            }
+            const p1 = (0, renderer_2.screenToSceneCoords)(clientX, clientY);
+            let shopLine = getShopLine(shopModule, p1)
+            console.log({ clientX, clientY }, p1, shopLine)
+            const shopItemCount = shopModule.shop.items.length
+            if (0 <= shopLine && shopLine < shopItemCount) {
+                shopModule.shop.selectedIndex = shopLine
+                shopModule.buy()
+            }
+            return
         }
-        (0, actions_4.Cast)();
     };
     onpointermove = ({ clientX, clientY }) => {
         let p1 = player.center();
         let p2 = (0, renderer_2.screenToSceneCoords)(clientX, clientY);
         game.spell.targetAngle = (0, helpers_12.angleBetweenPoints)(p1, p2);
+        if (game.state === game_6.SHOPPING) {
+            const shopModule = require('shop')
+            if (!shopModule.shop.ready) {
+                return
+            }
+            let shopLine = getShopLine(shopModule, p2)
+            console.log({ clientX, clientY }, p2, shopLine)
+            const shopItemCount = shopModule.shop.items.length
+            if (0 <= shopLine && shopLine < shopItemCount) {
+                shopModule.shop.selectedIndex = shopLine
+            }
+            return
+        }
     };
     onkeydown = ({ which: key }) => {
         if (game.state === game_6.PLAYING) {
