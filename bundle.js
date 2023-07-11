@@ -1150,6 +1150,7 @@ define("shop", ["require", "exports", "actions", "game", "helpers", "levels", "s
         rituals: [],
         items: [],
         selectedIndex: 0,
+        ready: false,
     };
     function buy() {
         let item = exports.shop.items[exports.shop.selectedIndex];
@@ -1167,6 +1168,9 @@ define("shop", ["require", "exports", "actions", "game", "helpers", "levels", "s
     exports.selectShopIndex = selectShopIndex;
     function enterShop() {
         game.state = game_1.SHOPPING;
+        setTimeout(function(){
+            exports.shop.ready = true;
+        }, 400 * 1.5)
         restockShop();
         game.onShopEnter();
         (0, sounds_1.useShopSynths)();
@@ -1174,6 +1178,7 @@ define("shop", ["require", "exports", "actions", "game", "helpers", "levels", "s
     exports.enterShop = enterShop;
     function exitShop() {
         game.state = game_1.PLAYING;
+        exports.shop.ready = false;
         (0, levels_1.nextLevel)();
         (0, sounds_1.useLevelSynths)();
     }
