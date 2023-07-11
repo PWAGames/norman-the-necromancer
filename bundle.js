@@ -2333,11 +2333,14 @@ define("index", ["require", "exports", "sprites", "engine", "game", "renderer", 
         shopLine -= 2 // "Rituals\n\n" takes up top two lines
         return shopLine
     }
-    onpointerdown = () => {
+    onpointerdown = ({ clientX, clientY }) => {
         pointerDownState = game.state
         if (game.state === game_6.INTRO) {
             return
         }
+        let p1 = player.center();
+        let p2 = (0, renderer_2.screenToSceneCoords)(clientX, clientY);
+        game.spell.targetAngle = (0, helpers_12.angleBetweenPoints)(p1, p2);
         (0, actions_4.Cast)();
         castTimerId = setInterval((0, actions_4.Cast), 400)
     };
