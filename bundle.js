@@ -209,7 +209,7 @@ define("engine", ["require", "exports", "font", "helpers"], function (require, e
     exports.write = write;
     function resize() {
         let { width: w, height: h } = exports.canvas;
-        let scale = Math.min(innerWidth / w, innerHeight / h, 3);
+        let scale = Math.min(innerWidth / w, innerHeight / h);
         exports.canvas.style.width = exports.canvas.width * scale + "px";
         exports.canvas.style.height = exports.canvas.height * scale + "px";
         exports.ctx.imageSmoothingEnabled = false;
