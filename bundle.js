@@ -97,12 +97,19 @@ define("engine", ["require", "exports", "font", "helpers"], function (require, e
             metrics[c] = font_json_1.glyphWidthOverrides[k];
         }
     }
+    window.frameText = ""
+    window.lastFrameText = ""
     let spritesImage = new Image();
     // spritesImage.src = spriteSrc;
     spritesImage.src = "./sprites.png";
     exports.canvas = c;
     exports.ctx = exports.canvas.getContext("2d");
     function clear() {
+        if (window.frameText != window.lastFrameText) {
+            console.log(window.frameText)
+        }
+        window.lastFrameText = window.frameText
+        window.frameText = ""
         exports.ctx.clearRect(0, 0, exports.canvas.width, exports.canvas.height);
     }
     exports.clear = clear;
@@ -197,6 +204,7 @@ define("engine", ["require", "exports", "font", "helpers"], function (require, e
                 textX += metrics[char] ?? font_json_1.glyphWidth;
             }
         }
+        window.frameText += text
     }
     exports.write = write;
     function resize() {
