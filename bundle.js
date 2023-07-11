@@ -1257,7 +1257,7 @@ define("renderer", ["require", "exports", "sprites", "engine", "helpers", "game"
     }
     exports.render = render;
     function drawShop() {
-        (0, engine_2.write)("Rituals\n\n", 160, 20);
+        (0, engine_2.write)("Rituals\n\n", 130, 10);
         let selected = shop_1.shop.items[shop_1.shop.selectedIndex];
         for (let item of shop_1.shop.items) {
             if (game.souls < item.cost) {
@@ -1266,11 +1266,11 @@ define("renderer", ["require", "exports", "sprites", "engine", "helpers", "game"
             (0, engine_2.write)(`${item === selected ? ">" : " "}${item.name} $${item.cost}\n`);
             engine_2.ctx.globalAlpha = 1;
         }
-        (0, engine_2.write)("\n" + selected?.description + "\n");
+        (0, engine_2.write)("\n" + selected?.description + "\n", 60);
     }
     function drawHud() {
         if (game.dialogue.length) {
-            (0, engine_2.write)(game.dialogue[0], 75, 50);
+            (0, engine_2.write)(game.dialogue[0], 37, 25);
         }
         if (game.state === game_2.INTRO)
             return;
@@ -1289,17 +1289,21 @@ define("renderer", ["require", "exports", "sprites", "engine", "helpers", "game"
             let bonus = multiplier ? `(+${multiplier * 100 + "%"})` : "";
             (0, engine_2.write)(`${ICON_SOULS}${souls} ${bonus}`, engine_2.canvas.width / 2 - 30, 0);
         }
-        (0, engine_2.write)(`${game.level + 1}-10`, engine_2.canvas.width - 30, 2);
+        (0, engine_2.write)(`${game.level + 1}-10`, engine_2.canvas.width - 60, 2);
         if (game.state === game_2.PLAYING) {
             let x = 150;
             let y = engine_2.canvas.height - 12;
             let progress = (0, helpers_7.clamp)(game.ability.timer / game.ability.cooldown, 0, 1);
             (0, engine_2.drawNineSlice)(sprites.pink_frame, x, y, 52 * (1 - progress) | 0, 10);
-            (0, engine_2.write)("Resurrect", x + 10, y + 2);
-            if (progress === 1)
-                (0, engine_2.write)(" (Space)");
-            else
-                (0, engine_2.write)(" (" + (((1 - progress) * game.ability.cooldown) / 1000 | 0) + "s)");
+            // (0, engine_2.write)("Resurrect", x + 5, y + 1);
+            const resX = x + 5;
+            const resY = y + 1;
+            if (progress === 1) {
+                (0, engine_2.write)("Resurrect (Space)", resX, resY);
+            } else {
+                const cooldownSec = (((1 - progress) * game.ability.cooldown) / 1000 | 0);
+                (0, engine_2.write)("Resurrect (" + cooldownSec + "s)", resX, resY);
+            }
             (0, engine_2.drawSprite)(sprites.skull, x + 1, y + 1);
         }
     }
@@ -2326,7 +2330,7 @@ define("index", ["require", "exports", "sprites", "engine", "game", "renderer", 
     function getShopLine(shopModule, scenePos) {
         const fontLineHeight = require('font').lineHeight // 7
         const sceneOriginY = 150
-        const shopY = 20
+        const shopY = 10 // 20
         const shopTextY = sceneOriginY - shopY
         const shopItemCount = shopModule.shop.items.length
         let shopLine = Math.floor((shopTextY - scenePos.y) / fontLineHeight)
@@ -2445,7 +2449,7 @@ define("index", ["require", "exports", "sprites", "engine", "game", "renderer", 
             dialogueTimer = 0;
             // If the player watched the whole dialogue, remind them to click to start
             if (game.state === game_6.INTRO && game.dialogue.length === 0) {
-                game.dialogue.push("                (Click to begin)");
+                game.dialogue.push("        (Click to begin)");
             }
         }
     }
