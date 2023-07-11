@@ -7,6 +7,12 @@
 </head>
 <body style="display:flex;align-items:center;justify-content:center;background:#181622;touch-action:none;margin:0;">
 <canvas id=c style="image-rendering:pixelated"></canvas>
-<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="require.js"></script>
+<script type="text/javascript" src="bundle.js"></script>
+<script type="text/javascript">
+require(['index'], function(index){
+	// main
+})
+</script>
 </body>
 </html>
