@@ -1,0 +1,16 @@
+{
+	"name": "Norman the Necromancer",
+	"short_name": "Necromancer",
+	"description": "Mouse to aim, click to cast spells, spacebar to resurrect.",
+	"icons": [
+		{
+			"src": "icon.png",
+			"sizes": "160x160",
+			"type": "image/png"
+		}
+	],
+	"start_url": "index.html",
+	"display": "standalone",
+	"background_color": "#181622",
+	"orientation": "landscape"
+}
